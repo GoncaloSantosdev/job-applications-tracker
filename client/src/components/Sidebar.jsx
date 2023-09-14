@@ -6,7 +6,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 
 const Sidebar = () => {
   return (
-    <div className="fixed w-[100px] flex flex-col md:w-[290px] border-r px-6 py-8 h-screen z-50 bg-white">
+    <div className="fixed w-[100px] md:w-[290px] flex flex-col border-r px-6 py-8 h-screen z-50 bg-white">
       <div>
         <h1>Logo</h1>
       </div>
