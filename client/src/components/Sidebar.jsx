@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 // Data
 import { navData } from "../utils/data";
 import { AiOutlineLogout } from "react-icons/ai";
+import { useDashboardContext } from "../screens/DashboardLayout";
 
 const Sidebar = () => {
+  const { logoutUser } = useDashboardContext();
+
   return (
     <div className="fixed w-[100px] md:w-[290px] flex flex-col border-r px-6 py-8 h-screen z-50 bg-white">
       <div>
@@ -28,7 +31,10 @@ const Sidebar = () => {
       </nav>
 
       <div className="mt-auto">
-        <button className="text-blue-700 text-sm underline flex flex-col md:flex-row items-center gap-4">
+        <button
+          className="text-blue-700 text-sm underline flex flex-col md:flex-row items-center gap-4"
+          onClick={logoutUser}
+        >
           <AiOutlineLogout size={24} /> Logout
         </button>
       </div>

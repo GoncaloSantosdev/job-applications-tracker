@@ -1,28 +1,45 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext } from "react";
 // React Router
-import { Outlet } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
 // Components
 import { Header, Sidebar } from "../components";
+// API
+import customFetch from "../utils/customFetch";
+import { USERS_URL } from "../constants/api";
+// React Toastify
+import { toast } from "react-toastify";
 
 const DashboardContext = createContext();
 
+export const loader = async () => {
+  try {
+    const { data } = await customFetch.get(`${USERS_URL}/profile`);
+    return data;
+  } catch (error) {
+    return redirect("/");
+  }
+};
+
 const DashboardLayout = () => {
-  const user = { name: "Maria" };
+  const data = useLoaderData();
+  const navigate = useNavigate();
 
   const logoutUser = async () => {
-    console.log("Logout User");
+    navigate("/");
+    await customFetch.get(`${USERS_URL}/logout`);
+    toast.success("See you soon...");
   };
 
   return (
-    <DashboardContext.Provider value={{ user, logoutUser }}>
+    <DashboardContext.Provider value={{ data, logoutUser }}>
       <div className="flex bg-[#F4F7FE] min-h-screen">
         <Sidebar />
 
         <div className="flex flex-col w-full ml-[100px] md:ml-[290px]">
           <Header />
           <main>
-            <Outlet />
+            <Outlet context={{ data }} />
           </main>
         </div>
       </div>

@@ -7,20 +7,28 @@ import {
   LoginScreen,
   RegisterScreen,
 } from "./screens";
+// Actions
+import { action as registerAction } from "./screens/RegisterScreen";
+import { action as loginAction } from "./screens/LoginScreen";
+// Loaders
+import { loader as dashboardLoader } from "./screens/DashboardLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginScreen />,
+    action: loginAction,
     errorElement: <ErrorScreen />,
   },
   {
     path: "/register",
     element: <RegisterScreen />,
+    action: registerAction,
   },
   {
     path: "/dashboard",
     element: <DashboardLayout />,
+    loader: dashboardLoader,
     children: [
       {
         element: <h1>Stats</h1>,
