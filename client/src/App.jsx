@@ -2,6 +2,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Screens
 import {
+  AddJobScreen,
+  AllJobsScreen,
   DashboardLayout,
   ErrorScreen,
   LoginScreen,
@@ -10,6 +12,7 @@ import {
 // Actions
 import { action as registerAction } from "./screens/RegisterScreen";
 import { action as loginAction } from "./screens/LoginScreen";
+import { action as addJobAction } from "./screens/AddJobScreen";
 // Loaders
 import { loader as dashboardLoader } from "./screens/DashboardLayout";
 
@@ -36,11 +39,12 @@ const router = createBrowserRouter([
       },
       {
         path: "add-job",
-        element: <h1>Stats</h1>,
+        element: <AddJobScreen />,
+        action: addJobAction,
       },
       {
         path: "all-jobs",
-        element: <h1>Stats</h1>,
+        element: <AllJobsScreen />,
       },
       {
         path: "profile",

@@ -80,11 +80,7 @@ const RegisterScreen = () => {
             defaultValue="123456"
             required
           />
-          <button
-            type="submit"
-            className="bg-blue-700 text-white rounded-full px-8 py-2 hover:bg-blue-800 transition text-sm"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="btn-primary" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Sign Up"}
           </button>
 
