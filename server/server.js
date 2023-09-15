@@ -8,6 +8,7 @@ import morgan from "morgan";
 // DB Connection
 import connectDB from "./config/db.js";
 // Routes
+import userRoutes from "./routes/userRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 // Middlewares
 import { notFound, errorHandler } from "./middlewares/errorHandler.js";
@@ -29,6 +30,7 @@ app.use(
 );
 
 // Routes
+app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
 
 // Middlewares
