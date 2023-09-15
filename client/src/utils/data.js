@@ -8,33 +8,28 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 export const navData = [
   {
     title: "Stats",
-    path: "",
+    path: ".",
     icon: BiStats,
-    isActive: true,
   },
   {
-    title: "Jobs List",
-    path: "",
+    title: "All Jobs",
+    path: "all-jobs",
     icon: CiViewList,
-    isActive: false,
   },
   {
     title: "Add Job",
-    path: "",
+    path: "add-job",
     icon: IoAddCircleOutline,
-    isActive: false,
   },
   {
     title: "Profile",
-    path: "",
+    path: "profile",
     icon: AiOutlineUser,
-    isActive: false,
   },
   {
     title: "Admin",
-    path: "",
+    path: "admin",
     icon: MdOutlineAdminPanelSettings,
-    isActive: false,
     isAdmin: false,
   },
 ];

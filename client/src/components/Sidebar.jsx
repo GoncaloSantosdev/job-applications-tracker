@@ -1,5 +1,5 @@
 // React Icons
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 // Data
 import { navData } from "../utils/data";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -15,17 +15,15 @@ const Sidebar = () => {
 
       <nav className="flex flex-col flex-grow gap-4">
         {navData.map((item, index) => (
-          <li
+          <NavLink
             key={index}
-            className={`list-none rounded px-4 py-3 hover:bg-blue-700 hover:text-white cursor-pointer transition-all ${
-              item.isActive ? "bg-blue-700 text-white" : ""
-            }`}
+            to={item.path}
+            className="flex items-center gap-4 rounded px-4 py-3 hover:bg-blue-700 hover:text-white transition-all"
+            end
           >
-            <Link to={item.path} className="flex items-center gap-4 text-sm">
-              {item.icon && <item.icon size={20} />}
-              <span className="hidden md:block">{item.title}</span>
-            </Link>
-          </li>
+            {item.icon && <item.icon size={20} />}
+            <span className="hidden md:block">{item.title}</span>
+          </NavLink>
         ))}
       </nav>
 

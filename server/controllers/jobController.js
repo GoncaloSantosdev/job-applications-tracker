@@ -5,16 +5,20 @@ import Job from "../models/jobModel.js";
 // @route   POST /api/jobs
 // @access  Private
 const createJob = async (req, res) => {
-  const job = await Job.create(req.body);
+  const job = await new Job({
+    user: req.user._id,
+    ...req.body,
+  });
 
-  res.status(201).json({ job });
+  const createdJob = await job.save();
+  res.status(201).json({ createdJob });
 };
 
 // @desc    Get Jobs
 // @route   GET /api/jobs
 // @access  Private
 const getJobs = async (req, res) => {
-  const jobs = await Job.find({});
+  const jobs = await Job.find({ user: req.user._id });
   res.status(200).json(jobs);
 };
 
@@ -26,12 +30,12 @@ const getJob = async (req, res) => {
 
   const job = await Job.findById(id);
 
-  if (!job) {
+  if (job) {
+    res.status(200).json({ job });
+  } else {
     res.status(404);
     throw new Error("Resource not found");
   }
-
-  res.status(200).json({ job });
 };
 
 // @desc    Update Job
