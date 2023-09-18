@@ -43,7 +43,7 @@ const JobCard = ({ item }) => {
               <AiOutlineEdit size={18} />
               Edit
             </Link>
-            <Form>
+            <Form method="post" action={`/dashboard/delete-job/${item._id}`}>
               <button className="text-sm flex items-center gap-1">
                 <AiOutlineDelete size={18} />
                 Delete

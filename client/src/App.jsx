@@ -16,6 +16,7 @@ import { action as registerAction } from "./screens/RegisterScreen";
 import { action as loginAction } from "./screens/LoginScreen";
 import { action as addJobAction } from "./screens/AddJobScreen";
 import { action as editJobAction } from "./screens/EditJobScreen";
+import { action as deleteJobAction } from "./screens/DeleteJobScreen";
 // Loaders
 import { loader as dashboardLoader } from "./screens/DashboardLayout";
 import { loader as listJobsLoader } from "./screens/AllJobsScreen";
@@ -59,8 +60,12 @@ const router = createBrowserRouter([
         action: editJobAction,
       },
       {
+        path: "delete-job/:id",
+        action: deleteJobAction,
+      },
+      {
         path: "profile",
-        element: <h1>Stats</h1>,
+        element: <h1>User Profile</h1>,
       },
       {
         path: "admin",
