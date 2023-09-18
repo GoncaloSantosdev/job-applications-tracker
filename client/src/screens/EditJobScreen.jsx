@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 // React Router
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 // Components
 import { FormRow, Title } from "../components";
 // API
@@ -9,15 +9,28 @@ import { JOBS_URL } from "../constants/api";
 // React Toastify
 import { toast } from "react-toastify";
 
-export const action = async ({ request }) => {
+export const loader = async ({ params }) => {
+  const { id } = params;
+  try {
+    const { data } = await customFetch.get(`${JOBS_URL}/${id}`);
+    return data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+    return error;
+  }
+};
+
+export const action = async ({ request, params }) => {
+  const { id } = params;
+
   // get input values
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
   // request
   try {
-    await customFetch.post(`${JOBS_URL}`, data);
-    toast.success("Job created successfully");
+    await customFetch.put(`${JOBS_URL}/${id}`, data);
+    toast.success("Job updated successfully");
     return redirect("/dashboard/all-jobs");
   } catch (error) {
     toast.error(error?.response?.data?.message);
@@ -25,13 +38,15 @@ export const action = async ({ request }) => {
   }
 };
 
-const AddJobScreen = () => {
+const EditJobScreen = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const data = useLoaderData();
+  const { job } = data;
 
   return (
     <div className="py-8 px-8">
-      <Title title="Add Job" />
+      <Title title="Edit Job" />
       <Form method="post" className="space-y-6 mt-8">
         <div className="flex flex-col md:flex-row gap-4">
           <FormRow
@@ -39,6 +54,7 @@ const AddJobScreen = () => {
             name="position"
             label="Position"
             placeholder="position"
+            defaultValue={job.position}
             required
           />
           <FormRow
@@ -46,6 +62,7 @@ const AddJobScreen = () => {
             name="company"
             label="Company"
             placeholder="company"
+            defaultValue={job.company}
             required
           />
         </div>
@@ -54,6 +71,7 @@ const AddJobScreen = () => {
           name="location"
           label="Job Location"
           placeholder="location"
+          defaultValue={job.location}
           required
         />
 
@@ -66,6 +84,7 @@ const AddJobScreen = () => {
               Job Status
             </label>
             <select
+              defaultValue={job.status}
               name="status"
               id="status"
               className="w-full border rounded px-4 py-2 text-sm"
@@ -83,6 +102,7 @@ const AddJobScreen = () => {
               Job Type
             </label>
             <select
+              defaultValue={job.type}
               name="type"
               id="type"
               className="w-full border rounded px-4 py-2 text-sm"
@@ -104,4 +124,4 @@ const AddJobScreen = () => {
   );
 };
 
-export default AddJobScreen;
+export default EditJobScreen;

@@ -1,4 +1,6 @@
 import { useState } from "react";
+// React Router
+import { Form, Link } from "react-router-dom";
 // React Icons
 import { CiLocationArrow1 } from "react-icons/ci";
 import {
@@ -34,14 +36,19 @@ const JobCard = ({ item }) => {
         </div>
         {modal && (
           <div className="absolute right-0 -bottom-20 bg-[#fefefeff] shadow-lg px-4 py-4 flex flex-col gap-6">
-            <button className="text-sm flex items-center gap-2">
+            <Link
+              to={`/dashboard/edit-job/${item._id}`}
+              className="text-sm flex items-center gap-2"
+            >
               <AiOutlineEdit size={18} />
               Edit
-            </button>
-            <button className="text-sm flex items-center gap-1">
-              <AiOutlineDelete size={18} />
-              Delete
-            </button>
+            </Link>
+            <Form>
+              <button className="text-sm flex items-center gap-1">
+                <AiOutlineDelete size={18} />
+                Delete
+              </button>
+            </Form>
           </div>
         )}
       </div>

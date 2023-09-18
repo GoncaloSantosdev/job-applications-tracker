@@ -24,7 +24,6 @@ export const loader = async () => {
 
 const AllJobsScreen = () => {
   const data = useLoaderData();
-  console.log(data);
 
   return (
     <AllJobsContext.Provider value={{ data }}>
