@@ -15,6 +15,7 @@ import { action as loginAction } from "./screens/LoginScreen";
 import { action as addJobAction } from "./screens/AddJobScreen";
 // Loaders
 import { loader as dashboardLoader } from "./screens/DashboardLayout";
+import { loader as listJobsLoader } from "./screens/AllJobsScreen";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       {
         path: "all-jobs",
         element: <AllJobsScreen />,
+        loader: listJobsLoader,
       },
       {
         path: "profile",

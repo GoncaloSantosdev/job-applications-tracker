@@ -12,5 +12,5 @@
 }
 
 .btn-primary {
-  @apply bg-blue-700 text-white rounded-full px-8 py-2 hover:bg-blue-800 transition text-sm;
+  @apply bg-blue-700 text-white rounded-lg px-8 py-2 hover:bg-blue-800 transition text-sm;
 }
