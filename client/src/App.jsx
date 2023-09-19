@@ -11,6 +11,7 @@ import {
   LoginScreen,
   ProfileScreen,
   RegisterScreen,
+  StatsScreen,
 } from "./screens";
 // Actions
 import { action as registerAction } from "./screens/RegisterScreen";
@@ -20,6 +21,7 @@ import { action as editJobAction } from "./screens/EditJobScreen";
 import { action as deleteJobAction } from "./screens/DeleteJobScreen";
 import { action as profileAction } from "./screens/ProfileScreen";
 // Loaders
+import { loader as statsLoader } from "./screens/StatsScreen";
 import { loader as dashboardLoader } from "./screens/DashboardLayout";
 import { loader as listJobsLoader } from "./screens/AllJobsScreen";
 import { loader as getJobLoader } from "./screens/EditJobScreen";
@@ -43,8 +45,9 @@ const router = createBrowserRouter([
     loader: dashboardLoader,
     children: [
       {
-        element: <h1>Stats</h1>,
+        element: <StatsScreen />,
         index: true,
+        loader: statsLoader,
       },
       {
         path: "add-job",

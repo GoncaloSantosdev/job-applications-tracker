@@ -42,7 +42,6 @@ const RegisterScreen = () => {
               name="firstName"
               label="First Name"
               placeholder="first name"
-              defaultValue="Maria"
               required
             />
             <FormRow
@@ -50,7 +49,6 @@ const RegisterScreen = () => {
               name="lastName"
               label="Last Name"
               placeholder="last name"
-              defaultValue="Menegheli"
               required
             />
           </div>
@@ -60,7 +58,6 @@ const RegisterScreen = () => {
               name="location"
               label="Location"
               placeholder="location"
-              defaultValue="New York City"
               required
             />
             <FormRow
@@ -68,7 +65,6 @@ const RegisterScreen = () => {
               name="email"
               label="Email"
               placeholder="name@gmail.com"
-              defaultValue="maria@gmail.com"
               required
             />
           </div>
@@ -77,9 +73,9 @@ const RegisterScreen = () => {
             name="password"
             label="Password"
             placeholder="••••••••"
-            defaultValue="123456"
             required
           />
+
           <button type="submit" className="btn-primary" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Sign Up"}
           </button>

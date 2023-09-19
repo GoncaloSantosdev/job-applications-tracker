@@ -39,14 +39,12 @@ const LoginScreen = () => {
             name="email"
             label="Email (admin@gmail.com)"
             placeholder="name@gmail.com"
-            defaultValue="maria@gmail.com"
           />
           <FormRow
             type="password"
             name="password"
             label="Password (123456)"
             placeholder="••••••••"
-            defaultValue="123456"
           />
 
           <button type="submit" className="btn-primary" disabled={isSubmitting}>

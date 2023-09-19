@@ -5,3 +5,7 @@ export { default as Header } from "./Header";
 export { default as Title } from "./Title";
 export { default as JobCard } from "./JobCard";
 export { default as Message } from "./Message";
+export { default as StatsCard } from "./StatsCard";
+export { default as ChartsContainer } from "./ChartsContainer";
+export { default as BarChartComponent } from "./BarChartComponent";
+export { default as AreaChartComponent } from "./AreaChartComponent";
