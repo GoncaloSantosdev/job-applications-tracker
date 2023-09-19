@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 // React Router
 import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
 // Components
-import { Header, Sidebar } from "../components";
+import { Header, MobileMenu, Sidebar } from "../components";
 // API
 import customFetch from "../utils/customFetch";
 import { USERS_URL } from "../constants/api";
@@ -24,6 +24,7 @@ export const loader = async () => {
 const DashboardLayout = () => {
   const data = useLoaderData();
   const navigate = useNavigate();
+  const [sidebar, setSidebar] = useState(false);
 
   const logoutUser = async () => {
     navigate("/");
@@ -31,13 +32,32 @@ const DashboardLayout = () => {
     toast.success("See you soon...");
   };
 
+  const handleSidebar = () => {
+    setSidebar((prev) => !prev);
+  };
+
+  const closeSidebar = () => {
+    setSidebar(false);
+  };
+
   return (
     <DashboardContext.Provider value={{ data, logoutUser }}>
-      <div className="flex bg-[#F4F7FE] min-h-screen">
-        <Sidebar />
+      <div className="flex bg-[#F4F7FE] min-h-screen relative w-full">
+        {sidebar ? (
+          <>
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black opacity-50 z-40 md:hidden"></div>
+            <div className="absolute left-0 right-0 top-0 bottom-0 flex justify-center h-screen items-center z-50 md:hidden">
+              <div className="bg-white shadow rounded w-[80%] h-[80vh]">
+                <MobileMenu closeSidebar={closeSidebar} />
+              </div>
+            </div>
+          </>
+        ) : (
+          <Sidebar />
+        )}
 
-        <div className="flex flex-col w-full ml-[100px] md:ml-[290px]">
-          <Header />
+        <div className="flex flex-col w-full md:ml-[240px] overflow-hidden">
+          <Header handleSidebar={handleSidebar} />
           <main>
             <Outlet context={{ data }} />
           </main>

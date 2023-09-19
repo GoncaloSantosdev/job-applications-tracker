@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // React Router
 import { Link } from "react-router-dom";
 // React Icons
@@ -5,16 +6,16 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { useDashboardContext } from "../screens/DashboardLayout";
 import { FaUserCircle } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({ handleSidebar }) => {
   const { data } = useDashboardContext();
 
   return (
     <header className="bg-white py-6 px-8 flex justify-between items-center">
-      <div className="cursor-pointer">
-        <HiOutlineMenuAlt2 size={24} />
+      <div className="cursor-pointer md:hidden">
+        <HiOutlineMenuAlt2 size={24} onClick={handleSidebar} />
       </div>
       <div className="hidden md:block">
-        <h3 className="text-lg">Welcome to Kanban 🙂</h3>
+        <h3 className="text-lg">Welcome to CareerSync 🙂</h3>
       </div>
       <div className="flex items-center gap-4">
         <Link to={"profile"} className="flex items-center gap-4">

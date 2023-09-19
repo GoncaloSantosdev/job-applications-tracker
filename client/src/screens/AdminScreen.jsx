@@ -28,7 +28,7 @@ const AdminScreen = () => {
     <div className="py-8 px-8">
       <Title title="Admin Stats" />
 
-      <div className="mt-8 flex gap-8">
+      <div className="mt-8 flex flex-col md:flex-row gap-8">
         <StatsCard
           icon={<FaUsers size={24} />}
           number={users}
