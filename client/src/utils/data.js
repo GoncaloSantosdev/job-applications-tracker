@@ -30,6 +30,5 @@ export const navData = [
     title: "Admin",
     path: "admin",
     icon: MdOutlineAdminPanelSettings,
-    isAdmin: false,
   },
 ];

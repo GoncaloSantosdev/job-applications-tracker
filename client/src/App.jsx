@@ -21,6 +21,7 @@ import { action as deleteJobAction } from "./screens/DeleteJobScreen";
 import { loader as dashboardLoader } from "./screens/DashboardLayout";
 import { loader as listJobsLoader } from "./screens/AllJobsScreen";
 import { loader as getJobLoader } from "./screens/EditJobScreen";
+import { loader as adminLoader } from "./screens/AdminScreen";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,7 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: <AdminScreen />,
+        loader: adminLoader,
       },
     ],
   },

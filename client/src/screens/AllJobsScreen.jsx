@@ -1,12 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext } from "react";
 // React Router
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 // API
 import customFetch from "../utils/customFetch";
 import { JOBS_URL } from "../constants/api";
 // Components
-import { JobCard, Title } from "../components";
+import { JobCard, Message, Title } from "../components";
 // React Toastify
 import { toast } from "react-toastify";
 
@@ -32,8 +32,18 @@ const AllJobsScreen = () => {
 
         <div>Filter Jobs</div>
 
-        {data.lenght === 0 ? (
-          "No Jobs to display"
+        {data.length === 0 ? (
+          <div className="mt-20">
+            <Message variant="danger">
+              No Jobs to display 😕{" "}
+              <Link
+                to={"/dashboard/add-job"}
+                className="underline font-semibold"
+              >
+                Add Jobs
+              </Link>
+            </Message>
+          </div>
         ) : (
           <div className="mt-12 grid md:grid-cols-2 gap-4">
             {data.map((item) => (
