@@ -9,6 +9,7 @@ import {
   EditJobScreen,
   ErrorScreen,
   LoginScreen,
+  ProfileScreen,
   RegisterScreen,
 } from "./screens";
 // Actions
@@ -17,6 +18,7 @@ import { action as loginAction } from "./screens/LoginScreen";
 import { action as addJobAction } from "./screens/AddJobScreen";
 import { action as editJobAction } from "./screens/EditJobScreen";
 import { action as deleteJobAction } from "./screens/DeleteJobScreen";
+import { action as profileAction } from "./screens/ProfileScreen";
 // Loaders
 import { loader as dashboardLoader } from "./screens/DashboardLayout";
 import { loader as listJobsLoader } from "./screens/AllJobsScreen";
@@ -66,7 +68,8 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <h1>User Profile</h1>,
+        element: <ProfileScreen />,
+        action: profileAction,
       },
       {
         path: "admin",

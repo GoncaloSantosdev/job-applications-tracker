@@ -6,3 +6,4 @@ export { default as AllJobsScreen } from "./AllJobsScreen";
 export { default as ErrorScreen } from "./ErrorScreen";
 export { default as AdminScreen } from "./AdminScreen";
 export { default as EditJobScreen } from "./EditJobScreen";
+export { default as ProfileScreen } from "./ProfileScreen";

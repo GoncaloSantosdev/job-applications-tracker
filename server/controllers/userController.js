@@ -3,6 +3,9 @@ import User from "../models/userModel.js";
 import Job from "../models/jobModel.js";
 // Utils
 import generateToken from "../utils/generateToken.js";
+// Cloudinary
+import cloudinary from "cloudinary";
+import { promises as fs } from "fs";
 
 // @desc    Register User & Get Token
 // @route   POST /api/users/register
@@ -69,7 +72,7 @@ const loginUser = async (req, res) => {
 };
 
 // @desc    Logout User & Destroy Token
-// @route   POST /api/users/logout
+// @route   GET /api/users/logout
 // @access  Private
 const logoutUser = async (req, res) => {
   res.cookie("jwt", "", {
@@ -91,6 +94,7 @@ const getUserProfile = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
+      avatar: user.avatar,
       email: user.email,
       isAdmin: user.isAdmin,
     });
@@ -106,12 +110,30 @@ const getUserProfile = async (req, res) => {
 const updateUserProfile = async (req, res) => {
   const user = await User.findOne(req.user._id);
 
-  if (user) {
-    user.firstName = req.body.firstName || user.firstName;
-    user.lastName = req.body.lastName || user.lastName;
-    user.location = req.body.location || user.location;
-    user.email = req.body.email || user.email;
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
   }
+
+  if (req.file) {
+    // Upload the new avatar image to Cloudinary
+    const response = await cloudinary.v2.uploader.upload(req.file.path);
+    await fs.unlink(req.file.path);
+
+    // Delete the old avatar image if it exists
+    if (user.avatarPublicId) {
+      await cloudinary.v2.uploader.destroy(user.avatarPublicId);
+    }
+
+    // Update user's avatar and avatarPublicId
+    user.avatar = response.secure_url;
+    user.avatarPublicId = response.public_id;
+  }
+
+  user.firstName = req.body.firstName || user.firstName;
+  user.lastName = req.body.lastName || user.lastName;
+  user.location = req.body.location || user.location;
+  user.email = req.body.email || user.email;
 
   if (req.body.password) {
     user.password = req.body.password;
@@ -126,6 +148,7 @@ const updateUserProfile = async (req, res) => {
       lastName: updatedUser.lastName,
       location: updatedUser.location,
       email: updatedUser.email,
+      avatar: updatedUser.avatar,
       isAdmin: updatedUser.isAdmin,
     });
   } else {

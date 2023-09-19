@@ -1,3 +1,4 @@
+import path from "path";
 import "express-async-errors";
 import express from "express";
 import dotenv from "dotenv";
@@ -5,6 +6,7 @@ dotenv.config();
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
+import cloudinary from "cloudinary";
 // DB Connection
 import connectDB from "./config/db.js";
 // Routes
@@ -32,6 +34,15 @@ app.use(
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
+const __dirname = path.resolve(); // set __dirname to current directory
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 // Middlewares
 app.use(notFound);
