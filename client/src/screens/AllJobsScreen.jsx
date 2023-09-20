@@ -6,16 +6,28 @@ import { Link, useLoaderData } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { JOBS_URL } from "../constants/api";
 // Components
-import { JobCard, Message, Title } from "../components";
+import {
+  JobCard,
+  Message,
+  PageBtn,
+  SearchContainer,
+  Title,
+} from "../components";
 // React Toastify
 import { toast } from "react-toastify";
 
 const AllJobsContext = createContext();
 
-export const loader = async () => {
+export const loader = async ({ request }) => {
+  const params = Object.fromEntries([
+    ...new URL(request.url).searchParams.entries(),
+  ]);
+
   try {
-    const { data } = await customFetch.get(`${JOBS_URL}`);
-    return data;
+    const { data } = await customFetch.get(`${JOBS_URL}`, {
+      params,
+    });
+    return { data, searchValues: { ...params } };
   } catch (error) {
     toast.error(error?.response?.data?.message);
     return error;
@@ -23,16 +35,18 @@ export const loader = async () => {
 };
 
 const AllJobsScreen = () => {
-  const data = useLoaderData();
+  const { data, searchValues } = useLoaderData();
+
+  const { jobs, totalJobs, numOfPages } = data;
 
   return (
-    <AllJobsContext.Provider value={{ data }}>
+    <AllJobsContext.Provider value={{ data, searchValues }}>
       <div className="py-8 px-8">
         <Title title="All Jobs" />
 
-        <div>Filter Jobs</div>
+        <SearchContainer />
 
-        {data.length === 0 ? (
+        {data.jobs.length === 0 ? (
           <div className="mt-20">
             <Message variant="danger">
               No Jobs to display 😕{" "}
@@ -45,14 +59,20 @@ const AllJobsScreen = () => {
             </Message>
           </div>
         ) : (
-          <div className="mt-12 grid md:grid-cols-2 gap-4">
-            {data.map((item) => (
-              <div key={item._id} className="bg-white rounded p-6 shadow">
-                <JobCard item={item} />
-              </div>
-            ))}
+          <div className="mt-12">
+            <h3 className="text-lg font-semibold">
+              {totalJobs} Job{jobs.length > 1 && "s"} Found
+            </h3>
+            <div className="mt-4 grid lg:grid-cols-2 gap-4">
+              {data.jobs.map((item) => (
+                <div key={item._id} className="bg-white rounded p-6 shadow">
+                  <JobCard item={item} />
+                </div>
+              ))}
+            </div>
           </div>
         )}
+        {numOfPages > 1 && <PageBtn />}
       </div>
     </AllJobsContext.Provider>
   );

@@ -1,5 +1,13 @@
 /* eslint-disable react/prop-types */
-const FormRow = ({ type, name, label, placeholder, defaultValue }) => {
+const FormRow = ({
+  type,
+  name,
+  label,
+  placeholder,
+  defaultValue,
+  required,
+  onChange,
+}) => {
   return (
     <div className="w-full">
       <label
@@ -15,7 +23,8 @@ const FormRow = ({ type, name, label, placeholder, defaultValue }) => {
         className="w-full border rounded px-4 py-2 text-sm"
         placeholder={placeholder}
         defaultValue={defaultValue || ""}
-        required
+        onChange={onChange}
+        required={required}
       />
     </div>
   );

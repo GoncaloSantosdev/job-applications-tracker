@@ -7,13 +7,15 @@ import { useDashboardContext } from "../screens/DashboardLayout";
 import { navData } from "../utils/data";
 // React Icons
 import { AiOutlineLogout, AiOutlineClose } from "react-icons/ai";
+import { BsPersonWorkspace } from "react-icons/bs";
 
 const MobileMenu = ({ closeSidebar }) => {
   const { logoutUser, data } = useDashboardContext();
   return (
     <div className="px-4 py-8 h-full">
       <div className="flex items-center justify-between">
-        <h1>Logo</h1>
+        <BsPersonWorkspace size={24} />
+        <h2>CareerSync</h2>
         <AiOutlineClose onClick={closeSidebar} />
       </div>
 

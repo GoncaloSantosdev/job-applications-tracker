@@ -7,7 +7,7 @@ const ChartsContainer = ({ data }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
         <h3 className="text-lg font-semibold">Monthly Applications</h3>
         <button
           type="button"

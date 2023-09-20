@@ -21,8 +21,52 @@ const createJob = async (req, res) => {
 // @route   GET /api/jobs
 // @access  Private
 const getJobs = async (req, res) => {
-  const jobs = await Job.find({ user: req.user._id });
-  res.status(200).json(jobs);
+  const { search, status, type, sort } = req.query;
+
+  const queryObject = {
+    user: req.user._id,
+  };
+
+  if (search) {
+    queryObject.$or = [
+      { position: { $regex: search, $options: "i" } },
+      { company: { $regex: search, $options: "i" } },
+      { location: { $regex: search, $options: "i" } },
+    ];
+  }
+
+  if (status && status !== "all") {
+    queryObject.status = status;
+  }
+
+  if (type && type !== "all") {
+    queryObject.type = type;
+  }
+
+  const sortOptions = {
+    newest: "-createdAt",
+    oldest: "createdAt",
+    "a-z": "position",
+    "z-a": "-position",
+  };
+
+  const sortKey = sortOptions[sort] || sortOptions.newest;
+
+  // setup pagination
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 6;
+  const skip = (page - 1) * limit;
+
+  const jobs = await Job.find(queryObject)
+    .sort(sortKey)
+    .skip(skip)
+    .limit(limit);
+
+  const totalJobs = await Job.countDocuments(queryObject);
+
+  const numOfPages = Math.ceil(totalJobs / limit);
+
+  res.status(200).json({ totalJobs, numOfPages, currentPage: page, jobs });
 };
 
 // @desc    Get Single Job

@@ -76,7 +76,7 @@ const JobCard = ({ item }) => {
               : item.status === "interview"
               ? "bg-green-600"
               : "bg-red-600"
-          } text-sm w-1/2 text-center py-2 rounded text-white capitalize`}
+          } text-sm sm:w-1/2 text-center py-2 rounded text-white capitalize`}
         >
           {item.status}
         </div>

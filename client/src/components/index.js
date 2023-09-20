@@ -10,3 +10,5 @@ export { default as ChartsContainer } from "./ChartsContainer";
 export { default as BarChartComponent } from "./BarChartComponent";
 export { default as AreaChartComponent } from "./AreaChartComponent";
 export { default as MobileMenu } from "./MobileMenu";
+export { default as SearchContainer } from "./SearchContainer";
+export { default as PageBtn } from "./PageBtn";
