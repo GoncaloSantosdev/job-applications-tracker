@@ -13,6 +13,9 @@
   "repository": "https://github.com/GoncaloSantosdev/job-applications-tracker.git",
   "author": "GoncaloSantosdev <goncalosantosprofissional@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=14.20.1"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.40.0",
